@@ -1,6 +1,5 @@
 # https://www.terraform.io/docs/providers/aws/r/db_instance.html
 provider "aws" {
-  profile = "default"
   region  = "us-east-2"
 }
 data "aws_vpc" "fiaptc_vpc" {
