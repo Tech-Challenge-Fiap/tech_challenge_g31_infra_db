@@ -18,7 +18,7 @@ resource "aws_security_group" "fiaptc_sg" {
   }
 }
 resource "aws_db_instance" "fiaptc_db" {
-  identifier             = "fiaptc_db"
+  identifier             = "fiaptc-db"
   db_name                = "fiaptc_db"
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
