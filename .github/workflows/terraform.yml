@@ -93,7 +93,9 @@ jobs:
       run: |
         export DB_PASSWORD=$DB_PASSWORD
         export DB_USER=$DB_USER
-        terraform plan -input=false
+        terraform plan -input=false \
+        -var DB_PASSWORD=${{secrets.DB_PASSWORD}}
+        -var DB_USER=${{secrets.DB_USER}}
       env:
         DB_PASSWORD: ${{secrets.DB_PASSWORD}}
         DB_USER: ${{secrets.DB_USER}}
