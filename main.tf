@@ -1,4 +1,13 @@
-# https://www.terraform.io/docs/providers/aws/r/db_instance.html
+terraform {
+  cloud {
+    organization = "Tech_Challenge_Fiap_G31"
+
+    workspaces {
+      name = "tech-challenge-app"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-2"
 }
