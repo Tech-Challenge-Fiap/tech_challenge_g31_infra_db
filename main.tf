@@ -7,7 +7,7 @@ data "aws_vpc" "fiaptc_vpc" {
   default = true
 }
 resource "aws_security_group" "fiaptc_sg" {
-  vpc_id      = "${data.aws_vpc.fiaptc_vpc.id}"
+  vpc_id      = data.aws_vpc.fiaptc_vpc.id
   name        = "fiaptc"
   description = "Allow all inbound for Postgres"
   ingress {
@@ -27,6 +27,6 @@ resource "aws_db_instance" "fiaptc_db" {
   skip_final_snapshot    = true
   publicly_accessible    = true
   vpc_security_group_ids = [aws_security_group.fiaptc_sg.id]
-  username               = "${var.DB_USER}"
-  password               = "${var.DB_PASSWORD}"
+  username               = var.DB_USER
+  password               = var.DB_PASSWORD
 }
