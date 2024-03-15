@@ -12,8 +12,12 @@ provider "aws" {
   region = "us-east-2"
 }
 
+data "aws_vpc" "fiaptc_vpc" {
+  default = true
+}
+
 resource "aws_security_group" "fiaptc_sg" {
-  vpc_id      = var.vpc_id
+  vpc_id      = data.aws_vpc.fiaptc_vpc.id
   name        = "fiaptc"
   description = "Allow all inbound for Postgres"
   ingress {
