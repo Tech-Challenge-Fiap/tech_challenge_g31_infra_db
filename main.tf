@@ -3,7 +3,7 @@ terraform {
     organization = "Tech_Challenge_Fiap_G31"
 
     workspaces {
-      name = "tech-challenge-app"
+      name = "tech-challenge-db"
     }
   }
 }
@@ -13,12 +13,17 @@ provider "aws" {
 }
 
 data "aws_vpc" "fiaptc_vpc" {
-  default = true
+  id = "vpc-0cc41e5c2f2bab408"
 }
 
-resource "aws_security_group" "fiaptc_sg" {
+resource "aws_db_subnet_group" "dbsubnet" {
+  name       = "dbsubnetgroup"
+  subnet_ids = var.subnets_ids
+}
+
+resource "aws_security_group" "fiaptc_db_sg" {
   vpc_id      = data.aws_vpc.fiaptc_vpc.id
-  name        = "fiaptc"
+  name        = "fiaptc_db_sg"
   description = "Allow all inbound for Postgres"
   ingress {
     from_port   = 5432
@@ -36,7 +41,8 @@ resource "aws_db_instance" "fiaptc_db" {
   engine_version         = "13"
   skip_final_snapshot    = true
   publicly_accessible    = true
-  vpc_security_group_ids = [aws_security_group.fiaptc_sg.id]
+  vpc_security_group_ids = [aws_security_group.fiaptc_db_sg.id]
   username               = var.DB_USER
   password               = var.DB_PASSWORD
+  db_subnet_group_name   = aws_db_subnet_group.dbsubnet.name
 }
