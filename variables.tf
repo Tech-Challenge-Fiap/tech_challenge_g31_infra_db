@@ -7,6 +7,11 @@ variable "DB_USER" {
 }
 
 variable "vpc_id" {
-  description = "Private Subnet 1"
-  default     = "vpc-0cc41e5c2f2bab408"
+  description = "VPC ID"
+  default     = "vpc-0b136b343c5d5283b"
+}
+
+
+variable "subnets_ids" {
+  default = ["subnet-00e3c8a2874e436aa", "subnet-0440edd530538d07f"]
 }
