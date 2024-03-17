@@ -12,8 +12,8 @@ provider "aws" {
   region = "us-east-2"
 }
 
-data "aws_vpc" "fiaptc_vpc" {
-  id = "vpc-0cc41e5c2f2bab408"
+data "aws_vpc" "vpc" {
+  id = var.vpc_id
 }
 
 resource "aws_db_subnet_group" "dbsubnet" {
@@ -22,7 +22,7 @@ resource "aws_db_subnet_group" "dbsubnet" {
 }
 
 resource "aws_security_group" "fiaptc_db_sg" {
-  vpc_id      = data.aws_vpc.fiaptc_vpc.id
+  vpc_id      = data.aws_vpc.vpc.id
   name        = "fiaptc_db_sg"
   description = "Allow all inbound for Postgres"
   ingress {
