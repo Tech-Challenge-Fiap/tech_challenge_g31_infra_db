@@ -17,7 +17,8 @@ data "aws_vpc" "vpc" {
 }
 
 resource "aws_db_subnet_group" "dbsubnet" {
-  name       = "dbsubnetgroup"
+  name = "dbsubnetgroup"
+  # only private subnets
   subnet_ids = var.subnets_ids
 }
 
@@ -25,6 +26,7 @@ resource "aws_security_group" "fiaptc_db_sg" {
   vpc_id      = data.aws_vpc.vpc.id
   name        = "fiaptc_db_sg"
   description = "Allow all inbound for Postgres"
+  # the database is only accessible via private subnets
   ingress {
     from_port   = 5432
     to_port     = 5432
